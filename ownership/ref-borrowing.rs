@@ -14,6 +14,13 @@
     1. Two or more pointers access the same data at the same time.
     2. At least one of the pointers is being used to write to the data.
     3. There's no mechanism being used to synchronize access to the data.
+
+    Note: 
+    You can't combine mutable and immutable references
+
+    Dangling Reference:
+    It's a pointer referencing a location in memory that has been allocated to another pointer.
+    Rust ensure it catches Dangling Reference at compile time
 */
 
 fn main(){
@@ -23,6 +30,9 @@ fn main(){
     make_change(&mut s1); 
     // dont_do_this();
     do_this();
+    // _dont_do_this_2();
+
+    let reference_to_nothing = dangle();
 }
 
 fn calculate_length(s:&String) -> usize{
@@ -54,4 +64,21 @@ fn do_this(){
     let r2 = &mut d1; //❌, you can borrow a particular variable twice in same scope
 
     println!("{} r2",r2);
+}
+
+// combine both mutable reference and reference of a variable in a scope
+fn _dont_do_this_2(){
+    let mut d = String::from("Hello");
+    let r1 = &d;
+    let r2 = &d; // reference
+    // let r3 = &mut d; // mutable reference
+
+    println!("{}, {}", r1,r2);
+    // println!("{}, {}, {}", r1,r2,r3);
+}
+
+fn dangle()-> &String{
+    let s = String::from("Hello David");
+
+    &s //an error is returned because we'll be making reference to s when out of scope.
 }
