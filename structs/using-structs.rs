@@ -8,6 +8,9 @@ impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
     }
+    fn can_hold(&self, other:&Rectangle) -> bool{
+        self.width > other.width && self.height > other.height
+    }
 }
 
 #[derive(Debug)]
@@ -22,11 +25,14 @@ impl Circle {
 }
 
 fn main(){
-    let rect = Rectangle {width:40,height:60};
+    let rect_1 = Rectangle {width:40,height:60};
+    let rect_2 = Rectangle {width:10,height:20};
     let circle = Circle {radius: 7.0};
-    println!("The area of the triangle is {:#?} square pixels", rect.area());
+    println!("Can rect_1 hold rect_2? {}", rect_1.can_hold(&rect_2));
+    println!("The area of the rectangle is {:#?} square pixels", rect_1.area());
+    println!("The area of the rectangle is {:#?} square pixels", rect_2.area());
     println!("The area of the circle is {} m2", circle.area());
-    println!("rect is {:#?}", rect);
+    println!("rect is {:#?}", rect_1);
 }
  
 
