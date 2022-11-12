@@ -33,6 +33,6 @@ impl Contract{
         let required_storage_in_bytes = env::storage_usage() - initial_storage_usage;
 
 
-        refund_deposit(required_storage_in_bytes);
+        refund_deposit(required_storage_in_bytes);b
     }
 }
